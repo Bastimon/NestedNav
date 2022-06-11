@@ -135,7 +135,13 @@ function RezeptGeneratorAnzeigen() {
   const [gewuerzZutat, setGewuerzZutat] = useState(gewuerze[0]);
 
   const [buttonEmoji, setButtonEmoji] = useState('🥙');
-
+  const sauceSection = sauceZutat.zutaten.map((prop, key) => (
+    <List.Item
+      style={{margin: -5, padding: 0}}
+      title={prop}
+      description="2 EL"
+    />
+  ));
   return (
     <ScrollView contentInsetAdjustmentBehavior="automatic">
       <View style={styles.paddingForm}>
@@ -164,11 +170,7 @@ function RezeptGeneratorAnzeigen() {
           <List.Subheader style={{margin: -15, padding: 0}}>
             Sauce:
           </List.Subheader>
-          <List.Item
-            style={{margin: -5, padding: 0}}
-            title="Sojasauce"
-            description="2 EL"
-          />
+
           <List.Item
             style={{margin: -5, padding: 0}}
             title="geröstetes Sesamöl"

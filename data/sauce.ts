@@ -1,7 +1,7 @@
 export class Sauce {
   id: number;
   name: string;
-  zutaten: string[];
+  zutaten: SaucenZutat[];
   zubereitung: string;
   mitGewürzen: boolean;
 
