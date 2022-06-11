@@ -1,5 +1,5 @@
-import { Zubereitungsart, Zubereitungstyp } from './zubereitungsart';
-import { Zutat } from './zutat';
+import {Zubereitungsart, Zubereitungstyp} from './zubereitungsart';
+import {Zutat} from './zutat';
 
 const anbratenText =
   'Das Gemüse in die Pfanne geben und ca. 5 Minuten mitbraten';
@@ -17,7 +17,7 @@ const brokkoliVorbereitung =
 const brokkoliKochen = new Zubereitungsart(
   Zubereitungstyp.Kochen,
   brokkoliVorbereitung +
-  'Alles in reichlich kochendem Salzwasser etwa 5 Minuten bissfest garen',
+    'Alles in reichlich kochendem Salzwasser etwa 5 Minuten bissfest garen',
 );
 
 const paprikaVorbereitung =
@@ -46,7 +46,7 @@ const kürbisVorbereitung =
 const kürbisBacken = new Zubereitungsart(
   Zubereitungstyp.Backen,
   kürbisVorbereitung +
-  ' Die Stücke auf einem Backblech verteilen. 1EL Öl, 1/2 TL Salz, 1/2TL Pfeffer, 1/2 TL Curry Pulver vermischen und die Kürbisstücke damit bepinseln. Den Kürbis bei 200° Grad für 30 Minuten im Ofen rösten.',
+    ' Die Stücke auf einem Backblech verteilen. 1EL Öl, 1/2 TL Salz, 1/2TL Pfeffer, 1/2 TL Curry Pulver vermischen und die Kürbisstücke damit bepinseln. Den Kürbis bei 200° Grad für 30 Minuten im Ofen rösten.',
 );
 
 const spinatVorbereitung =
@@ -54,7 +54,7 @@ const spinatVorbereitung =
 const spinatKochen = new Zubereitungsart(
   Zubereitungstyp.Kochen,
   spinatVorbereitung +
-  'Spinat in die Pfanne geben und solange mitkochen, bis er eingefallen ist.',
+    'Spinat in die Pfanne geben und solange mitkochen, bis er eingefallen ist.',
 );
 
 const pakChoiVorbereiten =
@@ -69,7 +69,7 @@ const aubergineVorbereitung =
 const aubergineBraten = new Zubereitungsart(
   Zubereitungstyp.Braten,
   aubergineVorbereitung +
-  'Anschließend die Aubergine für ca. 10 Minuten anbraten.',
+    'Anschließend die Aubergine für ca. 10 Minuten anbraten.',
 );
 
 const blumenkohlVorbereitung =
@@ -77,7 +77,7 @@ const blumenkohlVorbereitung =
 const blumenkohlKochen = new Zubereitungsart(
   Zubereitungstyp.Kochen,
   blumenkohlVorbereitung +
-  'Alles in reichlich kochendem Salzwasser etwa 5 Minuten bissfest garen',
+    'Alles in reichlich kochendem Salzwasser etwa 5 Minuten bissfest garen',
 );
 
 const vegan = true;

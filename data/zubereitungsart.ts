@@ -11,6 +11,7 @@ export class Zubereitungsart {
   text: string;
 
   constructor(typ: Zubereitungstyp, text: string) {
-    (this.typ = typ), (this.text = text);
+    this.typ = typ;
+    this.text = text;
   }
 }

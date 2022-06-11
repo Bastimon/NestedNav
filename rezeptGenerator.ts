@@ -3,17 +3,48 @@ import {gemuese} from './data/gemuese';
 import {gewuerze} from './data/gewuerze';
 import {Gewürzmischung} from './data/gewürzmischung';
 import {kohlenhydrate} from './data/kohlenhydrate';
+import {Protein} from './data/protein';
 import {proteinquelle} from './data/proteine';
 import {Sauce} from './data/sauce';
 import {saucen} from './data/saucen';
 import {Zubereitungsart} from './data/zubereitungsart';
 import {Zutat} from './data/zutat';
 export class RezeptGenerator {
-  private chosenProtein!: Zutat;
-  private chosenKohlenhydrat!: Zutat;
-  private chosenGemüse!: Zutat;
-  private chosenSauce!: Sauce;
-  private chosenGewürzmischung!: Gewürzmischung;
+  private _chosenProtein!: Protein;
+  public get chosenProtein(): Protein {
+    return this._chosenProtein;
+  }
+  private set chosenProtein(value: Protein) {
+    this._chosenProtein = value;
+  }
+  private _chosenKohlenhydrat!: Zutat;
+  public get chosenKohlenhydrat(): Zutat {
+    return this._chosenKohlenhydrat;
+  }
+  private set chosenKohlenhydrat(value: Zutat) {
+    this._chosenKohlenhydrat = value;
+  }
+  private _chosenGemüse!: Zutat;
+  public get chosenGemüse(): Zutat {
+    return this._chosenGemüse;
+  }
+  private set chosenGemüse(value: Zutat) {
+    this._chosenGemüse = value;
+  }
+  private _chosenSauce!: Sauce;
+  public get chosenSauce(): Sauce {
+    return this._chosenSauce;
+  }
+  private set chosenSauce(value: Sauce) {
+    this._chosenSauce = value;
+  }
+  private _chosenGewürzmischung!: Gewürzmischung;
+  public get chosenGewürzmischung(): Gewürzmischung {
+    return this._chosenGewürzmischung;
+  }
+  private set chosenGewürzmischung(value: Gewürzmischung) {
+    this._chosenGewürzmischung = value;
+  }
 
   constructor() {
     this.init(false);
@@ -21,11 +52,15 @@ export class RezeptGenerator {
 
   public init(isVegan: boolean): void {
     this.chosenProtein = isVegan
-      ? this.getRandomZutat(proteinquelle.filter(_ => _.vegan))
-      : this.getRandomZutat(proteinquelle);
+      ? this.getRandomProtein(proteinquelle.filter(_ => _.isVegan))
+      : this.getRandomProtein(proteinquelle);
+
     this.chosenKohlenhydrat = this.getRandomZutat(kohlenhydrate);
     this.chosenGemüse = this.getRandomZutat(gemuese);
-    this.chosenSauce = this.getRandomSauce();
+    this.chosenSauce = isVegan
+      ? this.getRandomSauce(saucen.filter(_ => _.isVegan))
+      : this.getRandomSauce(saucen);
+
     this.chosenGewürzmischung = this.getRandomGewürzMischung();
   }
 
@@ -56,12 +91,15 @@ export class RezeptGenerator {
     return gewuerze[Math.floor(Math.random() * gewuerze.length)];
   }
 
-  private getRandomSauce() {
+  private getRandomSauce(saucen: Sauce[]) {
     return saucen[Math.floor(Math.random() * saucen.length)];
   }
 
   private getRandomZutat(zutaten: Zutat[]) {
     return zutaten[Math.floor(Math.random() * zutaten.length)];
+  }
+  private getRandomProtein(protein: Protein[]) {
+    return protein[Math.floor(Math.random() * protein.length)];
   }
 
   private getTextbaustein(zutat: Zutat): string {
@@ -83,25 +121,6 @@ export class RezeptGenerator {
       : this.chosenSauce.name;
 
     return text;
-  }
-
-  public generateZutatenliste(): string {
-    let text = '';
-    text += this.getZutatZutatenlistText(this.chosenProtein);
-    text += this.getZutatZutatenlistText(this.chosenKohlenhydrat);
-    text += this.getZutatZutatenlistText(this.chosenGemüse);
-    text += this.chosenSauce.mitGewürzen
-      ? this.chosenGewürzmischung.mengen.join('\n')
-      : '';
-
-    text += '\n';
-    text += this.chosenSauce.zutaten.join('\n');
-
-    return text;
-  }
-
-  private getZutatZutatenlistText(zutat: Zutat) {
-    return zutat.menge + 'g ' + zutat.name + '\n';
   }
 
   public generateRezept(): string {

@@ -1,8 +1,9 @@
+import {Gewürz} from './gewürz';
 import {Zubereitungsart} from './zubereitungsart';
 import {Zutat} from './zutat';
 
 export class Protein extends Zutat {
-  zusatzGewürze: string[];
+  zusatzGewürze: Gewürz[];
 
   constructor(
     id: number,
@@ -10,7 +11,7 @@ export class Protein extends Zutat {
     zubereitungsarten: Zubereitungsart[],
     menge: number,
     vegan: boolean,
-    zusatzGewürze: string[] = [],
+    zusatzGewürze: Gewürz[] = [],
   ) {
     super(id, name, zubereitungsarten, menge, vegan);
     this.zusatzGewürze = zusatzGewürze;

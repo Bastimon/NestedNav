@@ -5,7 +5,8 @@ export class Zutat {
   name: string;
   zubereitungsarten: Zubereitungsart[];
   menge: number;
-  vegan: boolean;
+  isVegan: boolean;
+
   constructor(
     id: number,
     name: string,
@@ -17,9 +18,14 @@ export class Zutat {
     this.name = name;
     this.zubereitungsarten = zubereitungsarten;
     this.menge = menge;
-    this.vegan = vegan;
+    this.isVegan = vegan;
   }
+
   public getMengeinGramm(): string {
     return this.menge + 'g';
+  }
+  public getZubereitungsText(): string {
+    let rand = Math.floor(Math.random() * this.zubereitungsarten.length);
+    return this.zubereitungsarten[rand].text;
   }
 }

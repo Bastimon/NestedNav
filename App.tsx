@@ -21,7 +21,7 @@ import {
   List,
   Provider,
 } from 'react-native-paper';
-
+import {FAB} from 'react-native-paper';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
@@ -74,28 +74,29 @@ const PROTEIN = 'proteine';
 
 function HomeScreen({navigation}: Props) {
   getData(PROTEIN);
-
-  let isVegan = false;
-
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
 
   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
   return (
     <View style={styles.buttonContainer}>
       <View style={styles.paddingForm}>
-        <Text>Vegan</Text>
+        <Text>Veganer Modus</Text>
         <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
       </View>
-      <Button mode="contained" onPress={() => navigation.navigate('Rezept')}>
-        Rezept generieren
-      </Button>
+      <FAB
+        icon="pizza"
+        style={styles.fab}
+        onPress={() => {
+          navigation.navigate('Rezept');
+        }}></FAB>
     </View>
   );
 }
 
 function RezeptGeneratorAnzeigen() {
+  Generator.init(false);
   const [displayRecipe, setRecipe] = useState('');
-  const [displayTitle, setTitle] = useState('');
+  const [displayTitle, setTitle] = useState(Generator.generateTitle());
   const [displayZutatenListe, setZutatenListe] = useState('');
 
   function handleGenerate(): void {
@@ -115,33 +116,54 @@ function RezeptGeneratorAnzeigen() {
 
     storeData(PROTEIN, proteinquelle);
     console.log(proteinquelle);
-
-    Generator.init(isEnabled);
-    let title = Generator.generateTitle();
-    let zutatenListe = Generator.generateZutatenliste();
-    let recipe = Generator.generateRezept();
-    setTitle(title);
-    setZutatenListe(zutatenListe);
-    setRecipe(recipe);
-    setButtonEmoji(foodEmojis[Math.floor(Math.random() * foodEmojis.length)]);
   }
 
-  const [isEnabled, setIsEnabled] = useState(false);
+  const [proteinZutat, setProteinZutat] = useState(Generator.chosenProtein);
+  const [hydrateZutat, setHydrateZutat] = useState(
+    Generator.chosenKohlenhydrat,
+  );
+  const [gemueseZutat, setGemueseZutat] = useState(Generator.chosenGemüse);
+  const [sauceZutat, setSauceZutat] = useState(Generator.chosenSauce);
+  const [gewuerzMischung, setGewuerzZutat] = useState(
+    Generator.chosenGewürzmischung,
+  );
 
-  const [proteinZutat, setProteinZutat] = useState(proteinquelle[0]);
-  const [hydrateZutat, setHydrateZutat] = useState(kohlenhydrate[0]);
-  const [gemueseZutat, setGemueseZutat] = useState(gemuese[0]);
-  const [sauceZutat, setSauceZutat] = useState(saucen[0]);
-  const [gewuerzZutat, setGewuerzZutat] = useState(gewuerze[0]);
-
-  const [buttonEmoji, setButtonEmoji] = useState('🥙');
-  const sauceSection = sauceZutat.zutaten.map((prop, key) => (
+  const sauceSection = sauceZutat.zutaten.map((gewürz, key) => (
     <List.Item
       style={{margin: -5, padding: 0}}
-      title={prop}
-      description="2 EL"
+      title={gewürz.name}
+      key={key}
+      description={gewürz.getDescription()}
     />
   ));
+  gewuerzMischung.gewürzZutat.forEach(element => {
+    console.log();
+  });
+
+  const gewürzeSection = gewuerzMischung.gewürzZutat.map((gewürzZutat, key) => (
+    <List.Item
+      style={{margin: -5, padding: 0}}
+      title={gewürzZutat.name}
+      key={key}
+      description={gewürzZutat.getDescription()}
+    />
+  ));
+  const marinadeSection = (
+    <List.Section style={{margin: 0, padding: 0}}>
+      <List.Subheader style={{margin: -15, padding: 0}}>
+        Marinade:
+      </List.Subheader>
+      {proteinZutat.zusatzGewürze.map((marinadeZutat, key) => (
+        <List.Item
+          style={{margin: -5, padding: 0}}
+          key={key}
+          title={marinadeZutat.name}
+          description={marinadeZutat.getDescription()}
+        />
+      ))}
+    </List.Section>
+  );
+
   return (
     <ScrollView contentInsetAdjustmentBehavior="automatic">
       <View style={styles.paddingForm}>
@@ -166,33 +188,25 @@ function RezeptGeneratorAnzeigen() {
             description={gemueseZutat.getMengeinGramm()}
           />
         </List.Section>
+        {proteinZutat.zusatzGewürze.length > 0 ? (
+          marinadeSection
+        ) : (
+          <View></View>
+        )}
         <List.Section style={{margin: 0, padding: 0}}>
           <List.Subheader style={{margin: -15, padding: 0}}>
             Sauce:
           </List.Subheader>
-
-          <List.Item
-            style={{margin: -5, padding: 0}}
-            title="geröstetes Sesamöl"
-            description="2 EL"
-          />
-          <List.Item
-            style={{margin: -5, padding: 0}}
-            title="Sriacha sauce"
-            description="1 EL"
-          />
-          <List.Item
-            style={{margin: -5, padding: 0}}
-            title="Wasser"
-            description="2 EL"
-          />
-          <List.Item
-            style={{margin: -5, padding: 0}}
-            title="Stärke"
-            description="1 TL"
-          />
+          {sauceSection}
+          {sauceZutat.mitGewürzen ? gewürzeSection : <View></View>}
         </List.Section>
-        <Text>{displayRecipe}</Text>
+      </View>
+      <View style={styles.paddingForm}>
+        <Title>Zubereitung</Title>
+        <Text>{formatText(hydrateZutat.getZubereitungsText())}</Text>
+        <Text>{formatText(proteinZutat.getZubereitungsText())}</Text>
+        <Text>{formatText(gemueseZutat.getZubereitungsText())}</Text>
+        <Text>{formatText(sauceZutat.getZubereitungsText())}</Text>
       </View>
     </ScrollView>
   );
@@ -289,6 +303,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  fab: {
+    margin: 16,
+  },
   paddingForm: {
     margin: 20,
   },
@@ -296,4 +313,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+function formatText(text: string): string {
+  const re = /(\.)(\w)/g;
+  return text.replace(re, '$1 $2');
+}
+
 export default App;
