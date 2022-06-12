@@ -1,5 +1,5 @@
+import {Storage} from '../storage';
 import {Zubereitungsart} from './zubereitungsart';
-
 export class Zutat {
   id: number;
   name: string;
@@ -19,6 +19,9 @@ export class Zutat {
     this.zubereitungsarten = zubereitungsarten;
     this.menge = menge;
     this.isVegan = vegan;
+  }
+  update(newData: any): void {
+    throw new Error('Method not implemented.');
   }
 
   public getMengeinGramm(): string {

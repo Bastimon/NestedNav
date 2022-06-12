@@ -82,7 +82,7 @@ const blumenkohlKochen = new Zubereitungsart(
 
 const vegan = true;
 
-export const gemuese: Zutat[] = [
+export let gemuese: Zutat[] = [
   new Zutat(0, 'Paprika', [paprikaBraten], 400, vegan),
   new Zutat(1, 'Pak Choi', [pakChoiBraten], 400, vegan),
   new Zutat(2, 'Zucchini', [zucchiniBraten], 500, vegan),
@@ -93,3 +93,6 @@ export const gemuese: Zutat[] = [
   new Zutat(6, 'Spinat', [spinatKochen], 400, vegan),
   new Zutat(7, 'Aubergine', [aubergineBraten], 400, vegan),
 ];
+export function setGemuesquelle(gemueseUpdate: Zutat[]) {
+  gemuese = gemueseUpdate;
+}
