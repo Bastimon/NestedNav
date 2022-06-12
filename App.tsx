@@ -26,7 +26,7 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Rezept Generator 9000" component={HomeTabs} />
+        <Stack.Screen name="Rezept Generator" component={HomeTabs} />
         <Stack.Screen name="Rezept" component={Rezept} />
       </Stack.Navigator>
     </NavigationContainer>
