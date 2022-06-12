@@ -99,6 +99,9 @@ export class RezeptGenerator {
 
   public generateAbschluss(): string {
     let text = '';
+    text += this.chosenProtein.name + ' und ' + this.chosenGemüse.name;
+    text += ' zusammen mit ' + this.chosenKohlenhydrat + ' servieren.';
     return text;
   }
+  
 }

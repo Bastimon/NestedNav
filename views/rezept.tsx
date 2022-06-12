@@ -100,6 +100,7 @@ export function Rezept({route, navigation}: any) {
         <Text>{formatText(proteinZutat.getZubereitungsText())}</Text>
         <Text>{formatText(gemueseZutat.getZubereitungsText())}</Text>
         <Text>{formatText(sauceZutat.getZubereitungsText())}</Text>
+        <Text>{Generator.generateAbschluss()}</Text>
       </View>
     </ScrollView>
   );
