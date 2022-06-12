@@ -100,8 +100,12 @@ export class RezeptGenerator {
   public generateAbschluss(): string {
     let text = '';
     text += this.chosenProtein.name + ' und ' + this.chosenGemüse.name;
-    text += ' zusammen mit ' + this.chosenKohlenhydrat + ' servieren.';
+    text +=
+      ' zusammen mit ' +
+      this.chosenKohlenhydrat.name +
+      ' und der ' +
+      this.chosenSauce.name +
+      ' servieren.';
     return text;
   }
-  
 }
