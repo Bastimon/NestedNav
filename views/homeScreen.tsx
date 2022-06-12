@@ -1,10 +1,10 @@
 import React from 'react';
 import {Switch, Text, View} from 'react-native';
 import {FAB} from 'react-native-paper';
-import {Props} from './props';
 import {styles} from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
-export function HomeScreen({navigation}: Props) {
+
+export function HomeScreen({navigation}: {navigation: any}) {
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
 
   const onToggleSwitch = () => {
@@ -12,15 +12,13 @@ export function HomeScreen({navigation}: Props) {
   };
   return (
     <View style={styles.buttonContainer}>
-      <View style={styles.paddingForm}>
-        <Text>Veganer Modus</Text>
-        <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
-      </View>
+      <Text>Veganer Modus</Text>
+      <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
       <FAB
         icon="silverware-fork-knife"
         style={styles.fab}
         onPress={() => {
-          navigation.navigate('Rezept');
+          navigation.navigate('Rezept', {isVegan: isSwitchOn});
         }}></FAB>
     </View>
   );

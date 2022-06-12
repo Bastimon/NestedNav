@@ -62,29 +62,8 @@ export class RezeptGenerator {
       : this.getRandomSauce(saucen);
 
     this.chosenGewürzmischung = this.getRandomGewürzMischung();
-  }
-
-  private generateProteinText(): string {
-    let text = '';
-    text = this.getTextbaustein(this.chosenProtein);
-    return text;
-  }
-
-  private generateHydrateText(): string {
-    let text = '';
-    text = this.getTextbaustein(this.chosenKohlenhydrat);
-    return text;
-  }
-
-  private generateGemueseText(): string {
-    let text = '';
-    text = this.getTextbaustein(this.chosenGemüse);
-    return text;
-  }
-
-  private generateSauceText(): string {
-    let text = this.chosenSauce.zubereitung;
-    return text;
+    console.log('Protein:\n' + JSON.stringify(this.chosenProtein));
+    console.log('Proteine:\n' + JSON.stringify(proteinquelle));
   }
 
   private getRandomGewürzMischung() {
@@ -100,11 +79,6 @@ export class RezeptGenerator {
   }
   private getRandomProtein(protein: Protein[]) {
     return protein[Math.floor(Math.random() * protein.length)];
-  }
-
-  private getTextbaustein(zutat: Zutat): string {
-    let rand = Math.floor(Math.random() * zutat.zubereitungsarten.length);
-    return zutat.zubereitungsarten[rand].text;
   }
 
   public generateTitle(): string {
@@ -123,13 +97,8 @@ export class RezeptGenerator {
     return text;
   }
 
-  public generateRezept(): string {
-    let tempText =
-      this.generateProteinText() +
-      this.generateHydrateText() +
-      this.generateGemueseText() +
-      this.generateSauceText();
-
-    return tempText;
+  public generateAbschluss(): string {
+    let text = '';
+    return text;
   }
 }

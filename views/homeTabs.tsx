@@ -3,6 +3,7 @@ import {createMaterialBottomTabNavigator} from '@react-navigation/material-botto
 import {HomeScreen} from './homeScreen';
 import {ZutatScreen} from './zutatScreen';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
 const Tab = createMaterialBottomTabNavigator();
 
 export function HomeTabs() {

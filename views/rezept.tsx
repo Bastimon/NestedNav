@@ -14,8 +14,8 @@ function formatText(text: string): string {
   return text.replace(re, '$1 $2');
 }
 
-export function Rezept(isVegan: boolean) {
-  Generator.init(isVegan);
+export function Rezept({route, navigation}: any) {
+  Generator.init(route.params.isVegan);
   const [displayTitle, setTitle] = useState(Generator.generateTitle());
   const [proteinZutat, setProteinZutat] = useState(Generator.chosenProtein);
   const [hydrateZutat, setHydrateZutat] = useState(

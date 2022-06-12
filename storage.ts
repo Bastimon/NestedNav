@@ -1,8 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {setGemuesquelle} from './data/gemuese';
-import {setKohlenhydrate} from './data/kohlenhydrate';
+import {gemuese, setGemuesquelle} from './data/gemuese';
+import {kohlenhydrate, setKohlenhydrate} from './data/kohlenhydrate';
 import {Protein} from './data/protein';
-import {setProteinquelle} from './data/proteine';
+import {proteinquelle, setProteinquelle} from './data/proteine';
 import {Zutat} from './data/zutat';
 
 export enum StorageKey {
@@ -36,7 +36,31 @@ export class Storage {
 
   public async storeData(key: StorageKey, data: any) {
     try {
-      await AsyncStorage.setItem(key, JSON.stringify(data));
+      switch (key) {
+        case StorageKey.PROTEIN:
+          let newProtein: Protein[] = [];
+          proteinquelle.forEach(_ => newProtein.push(_));
+          newProtein.push(data as Protein);
+          setProteinquelle(newProtein);
+          await AsyncStorage.setItem(key, JSON.stringify(newProtein));
+          break;
+        case StorageKey.GEMUESE:
+          let newGemuese: Zutat[] = [];
+          gemuese.forEach(_ => newGemuese.push(_));
+          newGemuese.push(data as Zutat);
+          setGemuesquelle(newGemuese);
+          await AsyncStorage.setItem(key, JSON.stringify(newGemuese));
+          break;
+        case StorageKey.KOHLENHYDRAT:
+          let newKohlenhydrat: Zutat[] = [];
+          kohlenhydrate.forEach(_ => newKohlenhydrat.push(_));
+          newKohlenhydrat.push(data as Zutat);
+          setKohlenhydrate(newKohlenhydrat);
+          await AsyncStorage.setItem(key, JSON.stringify(newKohlenhydrat));
+          break;
+        default:
+          break;
+      }
     } catch (e) {
       console.log(e);
     }

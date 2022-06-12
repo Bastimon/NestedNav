@@ -15,8 +15,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Storage} from './storage';
 import {HomeTabs} from './views/homeTabs';
 import {Rezept} from './views/rezept';
-import { RootStackParamList } from './views/props';
-
+import {RootStackParamList, Props} from './views/props';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -33,7 +32,5 @@ function App() {
     </NavigationContainer>
   );
 }
-
-
 
 export default App;

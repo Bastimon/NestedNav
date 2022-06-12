@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     margin: 16,
   },
   paddingForm: {
-    margin: 20,
+    margin: 15,
   },
   listForm: {
     flex: 1,
